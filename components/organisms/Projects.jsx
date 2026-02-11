@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Lightbox from "yet-another-react-lightbox";
@@ -11,6 +11,18 @@ export default function Projects() {
 
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxImages, setLightboxImages] = useState([]);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // DETECT MOBILE
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobile(media.matches);
+
+    update();
+    media.addEventListener("change", update);
+
+    return () => media.removeEventListener("change", update);
+  }, []);
 
   const clusters = [
     {
@@ -46,17 +58,40 @@ export default function Projects() {
     <>
       <section
         ref={containerRef}
-        className="bg-[#fffcf7] py-32 md:py-40 overflow-x-hidden"
+        className="bg-[#fffcf7] py-22 md:py-40 overflow-x-hidden"
       >
+        {/* HEADER */}
+        <div className="mb-15 sm:mb-28 px-6 lg:px-10 max-w-[680px]">
+          <span className="block text-[11px] uppercase tracking-[0.25em] text-black/65">
+            Our Projects
+          </span>
+        </div>
+
         {clusters.map((cluster, index) => {
           const isEven = index % 2 === 0;
 
           const start = index * 0.25;
           const end = start + 0.5;
 
-          const tallY = useTransform(scrollYProgress, [start, end], [-44, 44]);
-          const wideY = useTransform(scrollYProgress, [start, end], [-28, 28]);
-          const mediumY = useTransform(scrollYProgress, [start, end], [-20, 20]);
+          const tallYDesktop = useTransform(
+            scrollYProgress,
+            [start, end],
+            [-44, 44]
+          );
+          const wideYDesktop = useTransform(
+            scrollYProgress,
+            [start, end],
+            [-28, 28]
+          );
+          const mediumYDesktop = useTransform(
+            scrollYProgress,
+            [start, end],
+            [-20, 20]
+          );
+
+          const tallY = isMobile ? 0 : tallYDesktop;
+          const wideY = isMobile ? 0 : wideYDesktop;
+          const mediumY = isMobile ? 0 : mediumYDesktop;
 
           const openGallery = () => {
             setLightboxImages([
@@ -68,24 +103,19 @@ export default function Projects() {
           };
 
           return (
-            <div key={index} className="mb-56">
+            <div key={index} className="mb-24 md:mb-56">
               <div className="grid grid-cols-12 gap-x-8 px-6 md:px-10">
                 {/* SIDE CAPTION */}
                 <div
                   className={`
                     col-span-12 md:col-span-3
                     flex items-center
-                    ${isEven ? "order-1" : "order-2"}
+                    order-1
+                    ${isEven ? "md:order-1" : "md:order-2"}
                   `}
                 >
-                  <div
-                    className={`
-                      max-w-xs
-                      pb-8 md:pb-0
-                      ${!isEven ? "mt-6 md:mt-0" : ""}
-                    `}
-                  >
-                    <h2 className="text-[clamp(20px,5vw,24px)] font-[Canela] leading-[1.3] tracking-wide text-neutral-800">
+                  <div className="max-w-xs pb-8 md:pb-0">
+                    <h2 className="text-[clamp(25px,5vw,24px)] font-[Canela] leading-[1.3] tracking-wide text-neutral-800">
                       {cluster.title}
                     </h2>
 
@@ -104,7 +134,8 @@ export default function Projects() {
                   className={`
                     col-span-12 md:col-span-9
                     grid grid-cols-12 gap-x-5 gap-y-10
-                    ${isEven ? "order-2" : "order-1"}
+                    order-2
+                    ${isEven ? "md:order-2" : "md:order-1"}
                   `}
                 >
                   {/* TALL */}

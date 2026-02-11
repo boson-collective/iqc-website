@@ -107,7 +107,7 @@ export default function ProjectApproach() {
       {/* CONTENT */}
       <div className="relative z-10 w-full px-6 md:px-16 py-20 md:py-28">
         {/* LABEL */}
-        <div className="mb-6 md:absolute md:left-16 md:top-28 md:mb-0">
+        <div className="mb-6 md:absolute md:left-28 md:top-28 md:mb-0">
           <span className="block md:hidden text-[42px] font-[Canela] leading-[1.1]">
             Our Approach
           </span>

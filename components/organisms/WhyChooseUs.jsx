@@ -118,12 +118,11 @@ export default function WhyChooseUs() {
               ref={(el) => (itemsRef.current[i] = el)}
               className="
                 relative
-                px-6
                 lg:px-8
                 py-14
-                border-t
+                border-b
                 border-white/10
-                lg:border-t-0
+                lg:border-b-0
                 lg:border-l
                 last:lg:border-r
               "

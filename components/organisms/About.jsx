@@ -2,7 +2,7 @@
 
 import { useRef, useEffect } from "react";
 import Image from "next/image";
-import { gsap, SplitText } from "@/lib/gsap";
+import { gsap, SplitText, ScrollTrigger } from "@/lib/gsap";
 
 export default function About() {
   const sectionRef = useRef(null);
@@ -10,68 +10,98 @@ export default function About() {
   const bodyRef = useRef(null);
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      /* ================= LEAD SPLIT ================= */
-      const leadSplit = new SplitText(leadRef.current, { type: "lines" });
+    let ctx;
+    let resizeTimeout;
 
-      leadSplit.lines.forEach((line) => {
-        const wrapper = document.createElement("div");
-        wrapper.style.overflow = "hidden";
-        wrapper.style.display = "block";
-        line.parentNode.insertBefore(wrapper, line);
-        wrapper.appendChild(line);
-      });
+    const initAnimation = () => {
+      ctx = gsap.context(() => {
+        /* ================= LEAD SPLIT ================= */
+        const leadSplit = new SplitText(leadRef.current, {
+          type: "lines",
+          linesClass: "split-line",
+        });
 
-      gsap.set(leadSplit.lines, {
-        y: 32,
-        opacity: 0.15,
-      });
+        leadSplit.lines.forEach((line) => {
+          const wrapper = document.createElement("div");
+          wrapper.style.overflow = "hidden";
+          wrapper.style.display = "block";
+          line.parentNode.insertBefore(wrapper, line);
+          wrapper.appendChild(line);
+        });
 
-      /* ================= BODY SPLIT ================= */
-      const bodySplit = new SplitText(bodyRef.current, { type: "lines" });
+        gsap.set(leadSplit.lines, {
+          y: 32,
+          opacity: 0.15,
+        });
 
-      bodySplit.lines.forEach((line) => {
-        const wrapper = document.createElement("div");
-        wrapper.style.overflow = "hidden";
-        wrapper.style.display = "block";
-        line.parentNode.insertBefore(wrapper, line);
-        wrapper.appendChild(line);
-      });
+        /* ================= BODY SPLIT ================= */
+        const bodySplit = new SplitText(bodyRef.current, {
+          type: "lines",
+          linesClass: "split-line",
+        });
 
-      gsap.set(bodySplit.lines, {
-        y: 20,
-        opacity: 0.2,
-      });
+        bodySplit.lines.forEach((line) => {
+          const wrapper = document.createElement("div");
+          wrapper.style.overflow = "hidden";
+          wrapper.style.display = "block";
+          line.parentNode.insertBefore(wrapper, line);
+          wrapper.appendChild(line);
+        });
 
-      /* ================= SHARED SCROLLTRIGGER ================= */
-      const triggerConfig = {
-        trigger: sectionRef.current,
-        start: "top 52%",
-        once: true,
-      };
+        gsap.set(bodySplit.lines, {
+          y: 20,
+          opacity: 0.2,
+        });
 
-      /* LEAD — FIRST */
-      gsap.to(leadSplit.lines, {
-        y: 0,
-        opacity: 1,
-        duration: 1.05,
-        ease: "power3.out",
-        stagger: 0.065,
-        scrollTrigger: triggerConfig,
-      });
+        const triggerConfig = {
+          trigger: sectionRef.current,
+          start: "top 52%",
+          once: true,
+        };
 
-      /* BODY — SECOND (NO DELAY) */
-      gsap.to(bodySplit.lines, {
-        y: 0,
-        opacity: 1,
-        duration: 0.9,
-        ease: "power3.out",
-        stagger: 0.05,
-        scrollTrigger: triggerConfig,
-      });
-    }, sectionRef);
+        gsap.to(leadSplit.lines, {
+          y: 0,
+          opacity: 1,
+          duration: 1.05,
+          ease: "power3.out",
+          stagger: 0.065,
+          scrollTrigger: triggerConfig,
+        });
 
-    return () => ctx.revert();
+        gsap.to(bodySplit.lines, {
+          y: 0,
+          opacity: 1,
+          duration: 0.9,
+          ease: "power3.out",
+          stagger: 0.05,
+          scrollTrigger: triggerConfig,
+        });
+      }, sectionRef);
+    };
+
+    /* ================= INIT FIRST ================= */
+    initAnimation();
+
+    /* ================= RESIZE SELF HEAL ================= */
+    const handleResize = () => {
+      clearTimeout(resizeTimeout);
+
+      resizeTimeout = setTimeout(() => {
+        if (ctx) {
+          ctx.revert(); // kill old split + animations
+        }
+
+        ScrollTrigger.refresh(); // reset scroll positions
+        initAnimation(); // re-init fresh split
+      }, 200);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      if (ctx) ctx.revert();
+    };
   }, []);
 
   return (
@@ -93,15 +123,9 @@ export default function About() {
 
       {/* ================= CONTENT ================= */}
       <div className="relative z-10 mx-auto max-w-[720px] px-10 text-left">
-        {/* LEAD */}
         <p
           ref={leadRef}
-          className="
-            mb-14
-            text-[clamp(20px,2.2vw,28px)]
-            leading-[1.3]
-            tracking-tight
-          "
+          className="mb-14 text-[clamp(20px,2.2vw,28px)] leading-[1.3] tracking-tight"
         >
           We are a Bali-based construction and quality control company bringing
           international project experience to the local market. Our team has
@@ -110,16 +134,9 @@ export default function About() {
           Bali.
         </p>
 
-        {/* BODY */}
         <p
           ref={bodyRef}
-          className="
-            max-w-[640px]
-            text-[clamp(20px,2.2vw,28px)]
-            leading-[1.3]
-            tracking-tight
-            text-neutral-700
-          "
+          className="max-w-[640px] text-[clamp(20px,2.2vw,28px)] leading-[1.3] tracking-tight text-neutral-700"
         >
           We focus on what matters most — strong supervision, clear
           communication, and reliable delivery.

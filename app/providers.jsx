@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import useLenis from "../hooks/useLenis"; 
 
 export default function Providers({ children }) {
-  useLenis();  
+useLenis();  
   
   return children;
 }
