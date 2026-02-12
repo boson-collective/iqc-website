@@ -26,21 +26,32 @@ export default function Projects() {
 
   const clusters = [
     {
-      title: "Private Residences",
+      title: "Katara Cultural Village",
       location: "Doha, Qatar",
       description:
-        "High-end private residential projects delivered under strict quality control and international construction standards.",
+        "Custom steel fabrication and installation of uniquely designed huts with integrated wood cladding",
       images: {
-        tall: "/images/capsule/22025364-7853-4189-8c33-093c1c1c085b 2.JPG",
-        wide: "/images/capsule/5041364c-14f0-4b1b-ba03-fa23806b3cf8 2.JPG",
-        medium: "/images/capsule/ca1a0e38-1775-4b6f-affb-234c1217281b 2.JPG",
+        tall: "/images/katara/e51f2960-194b-4cc9-8aad-5f2ff317f0d0 2.JPG",
+        wide: "/images/katara/13e56213-bf6d-42da-9256-9ffb62382cde.JPG",
+        medium: "/images/katara/86ff1c5d-93b5-4786-9dcd-92b13b1c8fe4.JPG",
       },
     },
     {
-      title: "Private Residences",
+      title: "Marroosh Restaurant",
+      location: "Bali, Indonesia",
+      description:
+        "End-to-end rebranding and redevelopment with interior transformation and kitchen expansion to optimize experience and performance",
+      images: {
+        tall: "/images/marroosh/8c6b946c-4be1-4124-8901-76668e6cbcdb.png",
+        wide: "/images/marroosh/cd505035-b017-4871-ad44-510501dc8659.png",
+        medium: "/images/marroosh/f3e57676-2838-4621-a36e-47a8a73ca198.png",
+      },
+    },
+    {
+      title: "Residential Villa",
       location: "Dubai, UAE",
       description:
-        "Luxury residential villas developed for expatriate clients, emphasizing durability, material precision, and disciplined execution.",
+        "Turnkey construction and interior delivery of high-end private villas built to premium regional standards",
       images: {
         tall: "/images/house/4b095765-4c75-447b-8121-2b7cf16fe831.JPG",
         wide: "/images/house/8b1b730d-2dbf-4f8d-8e06-61ea6f6506b9 2.JPG",
@@ -123,7 +134,7 @@ export default function Projects() {
                       {cluster.location}
                     </p>
 
-                    <p className="mt-3 md:mt-4 text-[14px] md:text-sm leading-[1.7] text-neutral-600">
+                    <p className="mt-3 md:mt-4 text-[14px] md:text-sm leading-[1.5] text-neutral-600">
                       {cluster.description}
                     </p>
                   </div>
