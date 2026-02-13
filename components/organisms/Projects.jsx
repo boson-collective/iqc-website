@@ -256,7 +256,7 @@ export default function Projects() {
                   `}
                 >
                   <div className="max-w-xs pb-8 md:pb-0">
-                    <h2 className="text-[clamp(25px,5vw,24px)] font-[Canela] leading-[1.3] tracking-wide text-neutral-800">
+                    <h2 className="text-[clamp(25px,5vw,24px)] font-[Canela] leading-[1.3]  tracking-wide text-neutral-800">
                       {cluster.title}
                     </h2>
                     <p className="mt-1.5 text-[11px] uppercase tracking-[0.22em] text-neutral-500">

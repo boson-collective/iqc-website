@@ -173,9 +173,9 @@ export default function Page() {
       {/* <CoreValues /> */}
 
      
-      <ParallaxImageSection imageUrl="https://images.unsplash.com/photo-1728049006252-020dfb896026?q=80&w=2942&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"/>
+      <ParallaxImageSection imageUrl="/images/mandor.png"/>
       <WhatWeDo />
-      <ParallaxImageSection imageUrl="https://images.unsplash.com/photo-1728048756779-ed7f123d371f?q=80&w=2942&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"/>
+      <ParallaxImageSection imageUrl="/images/house/61a911d8-8570-42ee-a0db-8473b3b4bda2.JPG"/>
       <ProjectApproach />
       <WhyChooseUs />
       <Projects />

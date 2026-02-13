@@ -52,7 +52,7 @@ export default function Hero({ opened }) {
         className="absolute inset-0"
       >
         <Image
-          src="https://images.unsplash.com/photo-1531971589569-0d9370cbe1e5?q=80&w=2362&auto=format&fit=crop&ixlib=rb-4.1.0"
+          src="/images/hero-bg.png"
           alt="Bali Construction Background"
           fill
           priority

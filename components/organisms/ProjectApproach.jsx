@@ -98,9 +98,9 @@ export default function ProjectApproach() {
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <img
           ref={bgImageRef}
-          src="/images/image_2026-01-28_20-39-35.png"
+          src="/images/approach-bg.png"
           alt=""
-          className="h-[120%] w-full object-cover opacity-[0.35]"
+          className="h-[120%] w-[50vw] object-cover "
         />
       </div>
 
