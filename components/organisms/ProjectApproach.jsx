@@ -100,7 +100,7 @@ export default function ProjectApproach() {
           ref={bgImageRef}
           src="/images/approach-bg.png"
           alt=""
-          className="h-[120%] w-[50vw] object-cover "
+          className="h-[120%] w-full md:w-[50vw] object-cover "
         />
       </div>
 

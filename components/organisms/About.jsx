@@ -68,13 +68,18 @@ export default function About() {
           scrollTrigger: triggerConfig,
         });
 
+        // 🔥 ONLY CHANGE: body trigger pakai bodyRef sendiri
         gsap.to(bodySplit.lines, {
           y: 0,
           opacity: 1,
           duration: 0.9,
           ease: "power3.out",
           stagger: 0.05,
-          scrollTrigger: triggerConfig,
+          scrollTrigger: {
+            trigger: bodyRef.current,
+            start: "top 95%",
+            once: true,
+          },
         });
       }, sectionRef);
     };
@@ -88,11 +93,11 @@ export default function About() {
 
       resizeTimeout = setTimeout(() => {
         if (ctx) {
-          ctx.revert(); // kill old split + animations
+          ctx.revert();
         }
 
-        ScrollTrigger.refresh(); // reset scroll positions
-        initAnimation(); // re-init fresh split
+        ScrollTrigger.refresh();
+        initAnimation();
       }, 200);
     };
 
@@ -127,7 +132,7 @@ export default function About() {
           ref={leadRef}
           className="mb-14 text-[clamp(20px,2.2vw,28px)] leading-[1.3] tracking-tight"
         >
-          We are a Bali-based construction and quality control company bringing
+          We are a Bali-based consultant construction and quality control company bringing
           international project experience to the local market. Our team has
           delivered diverse projects across the GCC and applies the same
           discipline, quality, and structured management to every project in

@@ -4,7 +4,7 @@ import Providers from "./providers";
 import Script from "next/script";
  
 export const metadata = {
-  title: "iQC — Iconic Quality Consultants",
+  title: "IQC — Iconic Quality Consultants",
   description:
     "Iconic Quality Consultants is an independent construction and quality control consultancy based in Bali, delivering projects with international standards, clear supervision, and long-term quality.",
 };

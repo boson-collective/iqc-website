@@ -173,9 +173,9 @@ export default function Page() {
       {/* <CoreValues /> */}
 
      
-      <ParallaxImageSection imageUrl="/images/mandor.png"/>
+      {/* <ParallaxImageSection imageUrl="/images/mandor.png"/> */}
       <WhatWeDo />
-      <ParallaxImageSection imageUrl="/images/house/61a911d8-8570-42ee-a0db-8473b3b4bda2.JPG"/>
+      <ParallaxImageSection imageUrl="/images/mandor2.jpg"/>
       <ProjectApproach />
       <WhyChooseUs />
       <Projects />

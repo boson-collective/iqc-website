@@ -20,11 +20,6 @@ export default function WhatWeDo() {
         "https://i.pinimg.com/1200x/a3/28/ce/a328ce34b6ad66466b7ab9b03ed4a924.jpg",
     },
     {
-      title: "Construction & Execution",
-      image:
-        "https://i.pinimg.com/736x/80/50/be/8050bebdb47f4018ac213261d26d9102.jpg",
-    },
-    {
       title: "Fit-Out & Finishing Works",
       image:
         "https://i.pinimg.com/1200x/55/29/82/552982431c45ab8479c50edd7c6575de.jpg",

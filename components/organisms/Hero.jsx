@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import Image from "next/image";
 import { motion, useScroll, useTransform } from "framer-motion";
 
@@ -51,13 +51,28 @@ export default function Hero({ opened }) {
         }}
         className="absolute inset-0"
       >
-        <Image
-          src="/images/hero-bg.png"
-          alt="Bali Construction Background"
-          fill
-          priority
-          className="object-cover"
-        />
+        {/* Desktop Background */}
+        <div className="hidden md:block absolute inset-0">
+          <Image
+            src="/images/herobg.png"
+            alt="Bali Construction Background"
+            fill
+            priority
+            className="object-cover"
+          />
+        </div>
+
+        {/* Mobile Background */}
+        <div className="block md:hidden absolute inset-0">
+          <Image
+            src="/images/herobg-mobile.png"
+            alt="Bali Construction Background Mobile"
+            fill
+            priority
+            className="object-cover"
+          />
+        </div>
+
         <div className="absolute inset-0 bg-black/35" />
       </motion.div>
 
@@ -90,32 +105,32 @@ export default function Hero({ opened }) {
             </div>
           </motion.div>
 
-          {/* ========== SPACER (INTENTIONAL EMPTY SPACE) ========== */}
+          {/* ========== SPACER */}
           <div />
 
           {/* ========== COPY (BOTTOM LEFT) ========== */}
-          <div className="max-w-[720px] pb-4 md:pb-8">
+          <div className="2xl:max-w-[880px] max-w-[720px] pb-6 md:pb-10">
             <h1
               className="
                 text-white
                 font-normal
-                leading-[1.0]
+                leading-[1.05]
                 tracking-tight
-                text-[clamp(28px,4.0vw,56px)]
+                text-[clamp(28px,4vw,80px)]
               "
             >
               Building Bali{" "}
-              <span className="font-[Canela] ">Better</span> — Through
+              <span className="font-[Canela]">Better</span> — Through
               Precision and International Standards
             </h1>
 
             <p
               className="
-                mt-4
-                max-w-[520px]
+                mt-6
+                max-w-[640px]
                 text-white/80
-                text-[clamp(13px,1.2vw,15px)]
                 leading-relaxed
+                text-[clamp(15px,0.9vw,20px)]
               "
             >
               Construction & quality control specialists delivering well-managed
