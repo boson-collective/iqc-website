@@ -1478,8 +1478,8 @@ function Footer() {
         <div className="flex flex-1 items-center justify-center">
           <div className="w-[200px] md:w-[260px] lg:w-[300px]">
             <Image
-              src="/images/Logo IQC - White C.png"
-              alt="Iconic Quality Consultants Logo"
+              src="/images/Logo IQC - White 3.png"
+              alt="Iconic Quality Consulting Logo"
               width={600}
               height={260}
               priority

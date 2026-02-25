@@ -95,7 +95,7 @@ export default function Hero({ opened }) {
           >
             <div className="w-[110px] md:w-[130px] lg:w-[150px]">
               <Image
-                src="/images/Logo IQC - White C.png"
+                src="/images/Logo IQC - White 3.png"
                 alt="IQC Logo"
                 width={640}
                 height={240}

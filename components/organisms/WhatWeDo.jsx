@@ -114,7 +114,7 @@ export default function WhatWeDo() {
   }, []);
 
   return (
-    <section className="relative bg-[#fffcf7] text-[#2f3b2f] px-5 sm:px-[6vw] py-20">
+    <section  data-theme="light" className="relative bg-[#fffcf7] text-[#2f3b2f] px-5 sm:px-[6vw] py-20">
       {/* HEADER */}
       <div className="mb-24 overflow-hidden">
         <span className="block md:hidden text-[42px] font-[Canela] leading-[1.1]">

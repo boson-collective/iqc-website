@@ -86,6 +86,7 @@ function ParallaxImageSection({
 
   return (
     <section
+    data-theme="dark"
       ref={sectionRef}
       className={`relative w-full overflow-hidden ${heightClass}`}
     >

@@ -129,7 +129,7 @@ export default function Footer() {
             "
           >
             <img
-              src="/images/Logo IQC - White C.png"
+              src="/images/Logo IQC - White 3.png"
               alt="IQC Logo"
               className="
                 mb-10
@@ -234,7 +234,7 @@ export default function Footer() {
         {/* BOTTOM */}
         <div className="mt-20 lg:mt-24 pt-6 lg:pt-8 border-t border-white/10 text-center lg:text-left">
           <p className="text-xs text-white/45 tracking-wide">
-            © {new Date().getFullYear()} Iconic Quality Consultants. All rights reserved.
+            © {new Date().getFullYear()} Iconic Quality Consulting. All rights reserved.
           </p>
         </div>
       </div>

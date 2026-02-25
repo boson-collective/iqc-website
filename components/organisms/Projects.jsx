@@ -244,7 +244,7 @@ export default function Projects() {
           };
 
           return (
-            <div key={index} className="mb-24 md:mb-56">
+            <div  data-theme="light" key={index} className="mb-24 md:mb-56">
               <div className="grid grid-cols-12 gap-x-8 px-6 md:px-10">
                 {/* SIDE CAPTION */}
                 <div

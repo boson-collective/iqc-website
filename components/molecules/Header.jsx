@@ -106,13 +106,13 @@ export default function Header() {
         {/* LOGO — LEFT */}
         <a href="/" className="block">
           <img
-            src="/images/Logo IQC - Black C.png"
+            src="/images/Logo IQC - White 3.png"
             alt="IQC"
             className="
               w-20 sm:w-24 md:w-40
               h-auto
               transition
-              group-data-[theme=dark]:invert
+              group-data-[theme=light]:invert
             "
           />
         </a>

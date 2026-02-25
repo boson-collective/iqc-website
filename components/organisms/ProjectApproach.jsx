@@ -91,6 +91,7 @@ export default function ProjectApproach() {
   ========================= */
   return (
     <section
+     data-theme="light"
       ref={sectionRef}
       className="relative w-full overflow-hidden bg-[#fffcf7] text-[#2f3b2f]"
     >
