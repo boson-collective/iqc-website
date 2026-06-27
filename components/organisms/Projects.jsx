@@ -10,6 +10,197 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+function ProjectCluster({
+  cluster,
+  index,
+  isMobile,
+  scrollYProgress,
+  onMaskRef,
+  onMediumLayerRef,
+  activeMediumIndex,
+  onOpenGallery,
+}) {
+  const isEven = index % 2 === 0;
+
+  const start = index * 0.25;
+  const end = start + 0.5;
+
+  const tallYValue = useTransform(scrollYProgress, [start, end], [-44, 44]);
+  const wideYValue = useTransform(scrollYProgress, [start, end], [-28, 28]);
+  const mediumYValue = useTransform(scrollYProgress, [start, end], [-20, 20]);
+
+  const tallY = isMobile ? 0 : tallYValue;
+  const wideY = isMobile ? 0 : wideYValue;
+  const mediumY = isMobile ? 0 : mediumYValue;
+
+  const tallAlt = `${cluster.title} project work in ${cluster.location}`;
+  const wideAlt = `${cluster.title} construction documentation in ${cluster.location}`;
+  const galleryLabel = `View ${cluster.title} project images`;
+  const projectImageButtonClass =
+    "col-span-5 row-span-2 relative aspect-[2/3] overflow-hidden cursor-pointer appearance-none border-0 bg-transparent p-0 text-left focus:outline-none focus-visible:ring-1 focus-visible:ring-[#2f3b2f] focus-visible:ring-offset-4 focus-visible:ring-offset-[#fffcf7]";
+  const wideImageButtonClass =
+    "col-span-7 relative aspect-[16/10] overflow-hidden cursor-pointer appearance-none border-0 bg-transparent p-0 text-left focus:outline-none focus-visible:ring-1 focus-visible:ring-[#2f3b2f] focus-visible:ring-offset-4 focus-visible:ring-offset-[#fffcf7]";
+  const mediumImageButtonClass =
+    "col-span-6 -mt-4 relative aspect-[4/3] overflow-hidden cursor-pointer appearance-none border-0 bg-transparent p-0 text-left focus:outline-none focus-visible:ring-1 focus-visible:ring-[#2f3b2f] focus-visible:ring-offset-4 focus-visible:ring-offset-[#fffcf7]";
+
+  const slides = [
+    { src: cluster.images.tall, alt: tallAlt },
+    { src: cluster.images.wide, alt: wideAlt },
+    ...cluster.images.medium.map((src, i) => ({
+      src,
+      alt: `${cluster.title} project detail ${i + 1} in ${cluster.location}`,
+    })),
+  ];
+
+  const openGallery = (startIndex) => {
+    onOpenGallery(slides, startIndex);
+  };
+
+  const handleGalleryKeyDown = (event, startIndex) => {
+    if (
+      event.key !== "Enter" &&
+      event.key !== " " &&
+      event.key !== "Spacebar"
+    ) {
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+    openGallery(startIndex);
+  };
+
+  return (
+    <div data-theme="light" className="mb-24 md:mb-56">
+      <div className="grid grid-cols-12 gap-x-8 px-6 md:px-10">
+        {/* SIDE CAPTION */}
+        <div
+          className={`
+            col-span-12 md:col-span-3
+            flex items-center
+            order-1
+            ${isEven ? "md:order-1" : "md:order-2"}
+          `}
+        >
+          <div className="max-w-xs pb-8 md:pb-0">
+            <h2 className="text-[clamp(24px,5vw,25px)] font-[Canela] leading-[1.3]  tracking-wide text-neutral-800">
+              {cluster.title}
+            </h2>
+            <p className="mt-1.5 text-[11px] uppercase tracking-[0.22em] text-neutral-500">
+              {cluster.location}
+            </p>
+            <p className="mt-3 md:mt-4 text-[14px] md:text-sm leading-[1.5] text-neutral-600">
+              {cluster.description}
+            </p>
+          </div>
+        </div>
+
+        {/* IMAGE GRID */}
+        <div
+          className={`
+            col-span-12 md:col-span-9
+            grid grid-cols-12 gap-x-5 gap-y-10
+            order-2
+            ${isEven ? "md:order-2" : "md:order-1"}
+          `}
+        >
+          {/* TALL */}
+          <button
+            type="button"
+            aria-label={galleryLabel}
+            onClick={() => openGallery(0)}
+            onKeyDown={(event) => handleGalleryKeyDown(event, 0)}
+            className={projectImageButtonClass}
+          >
+            <motion.div
+              style={{ y: tallY }}
+              initial={{ scale: 1.1 }}
+              whileHover={!isMobile ? { scale: 1.125 } : {}}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="absolute inset-0"
+            >
+              <div
+                ref={(el) => onMaskRef(index * 3, el)}
+                className="absolute inset-0"
+              >
+                <Image src={cluster.images.tall} alt={tallAlt} fill className="object-cover" />
+              </div>
+            </motion.div>
+          </button>
+
+          {/* WIDE */}
+          <button
+            type="button"
+            aria-label={galleryLabel}
+            onClick={() => openGallery(1)}
+            onKeyDown={(event) => handleGalleryKeyDown(event, 1)}
+            className={wideImageButtonClass}
+          >
+            <motion.div
+              style={{ y: wideY }}
+              initial={{ scale: 1.08 }}
+              whileHover={!isMobile ? { scale: 1.1 } : {}}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="absolute inset-0"
+            >
+              <div
+                ref={(el) => onMaskRef(index * 3 + 1, el)}
+                className="absolute inset-0"
+              >
+                <Image src={cluster.images.wide} alt={wideAlt} fill className="object-cover" />
+              </div>
+            </motion.div>
+          </button>
+
+          {/* MEDIUM */}
+          <button
+            type="button"
+            aria-label={galleryLabel}
+            onClick={() =>
+              openGallery(2 + (activeMediumIndex[index] || 0))
+            }
+            onKeyDown={(event) =>
+              handleGalleryKeyDown(event, 2 + (activeMediumIndex[index] || 0))
+            }
+            className={mediumImageButtonClass}
+          >
+            <motion.div
+              style={{ y: mediumY }}
+              initial={{ scale: 1.07 }}
+              whileHover={!isMobile ? { scale: 1.1 } : {}}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="absolute inset-0"
+            >
+              <div
+                ref={(el) => onMaskRef(index * 3 + 2, el)}
+                className="absolute inset-0"
+              >
+                {cluster.images.medium.map((src, i) => (
+                  <div
+                    key={i}
+                    ref={(el) => {
+                      if (el) onMediumLayerRef(index, i, el);
+                    }}
+                    className="absolute inset-0"
+                  >
+                    <Image
+                      src={src}
+                      alt={`${cluster.title} project detail ${i + 1} in ${cluster.location}`}
+                      fill
+                      className="object-cover"
+                      priority={i === 0}
+                    />
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Projects() {
   const containerRef = useRef(null);
   const maskRefs = useRef([]);
@@ -116,12 +307,13 @@ export default function Projects() {
 
   // ================= MEDIUM LOOP (PER CLUSTER) =================
   useEffect(() => {
+    const timelines = mediumTimelinesRef.current;
 
     mediumLayersRef.current.forEach((layers, clusterIndex) => {
       if (!layers || !layers.length) return;
 
-      if (mediumTimelinesRef.current[clusterIndex]) {
-        mediumTimelinesRef.current[clusterIndex].kill();
+      if (timelines[clusterIndex]) {
+        timelines[clusterIndex].kill();
       }
 
       gsap.set(layers, { opacity: 0 });
@@ -188,11 +380,11 @@ export default function Projects() {
 
       tl.to({}, { duration: 4 });
 
-      mediumTimelinesRef.current[clusterIndex] = tl;
+      timelines[clusterIndex] = tl;
     });
 
     return () => {
-      mediumTimelinesRef.current.forEach((tl) => tl?.kill());
+      timelines.forEach((tl) => tl?.kill());
     };
   }, [isMobile]);
 
@@ -200,6 +392,24 @@ export default function Projects() {
     target: containerRef,
     offset: ["start end", "end start"],
   });
+
+  const openGallery = (slides, startIndex) => {
+    setLightboxImages(slides);
+    setLightboxIndex(startIndex);
+    setLightboxOpen(true);
+  };
+
+  const setMaskRef = (index, el) => {
+    maskRefs.current[index] = el;
+  };
+
+  const setMediumLayerRef = (clusterIndex, layerIndex, el) => {
+    if (!mediumLayersRef.current[clusterIndex]) {
+      mediumLayersRef.current[clusterIndex] = [];
+    }
+
+    mediumLayersRef.current[clusterIndex][layerIndex] = el;
+  };
 
   return (
     <>
@@ -213,156 +423,19 @@ export default function Projects() {
           </span>
         </div>
 
-        {clusters.map((cluster, index) => {
-          if (!mediumLayersRef.current[index]) {
-            mediumLayersRef.current[index] = [];
-          }
-
-          const isEven = index % 2 === 0;
-
-          const start = index * 0.25;
-          const end = start + 0.5;
-
-          const tallYValue = useTransform(scrollYProgress, [start, end], [-44, 44]);
-          const wideYValue = useTransform(scrollYProgress, [start, end], [-28, 28]);
-          const mediumYValue = useTransform(scrollYProgress, [start, end], [-20, 20]);
-
-          const tallY = isMobile ? 0 : tallYValue;
-          const wideY = isMobile ? 0 : wideYValue;
-          const mediumY = isMobile ? 0 : mediumYValue;
-
-          const slides = [
-            { src: cluster.images.tall },
-            { src: cluster.images.wide },
-            ...cluster.images.medium.map((src) => ({ src })),
-          ];
-
-          const openGallery = (startIndex) => {
-            setLightboxImages(slides);
-            setLightboxIndex(startIndex);
-            setLightboxOpen(true);
-          };
-
-          return (
-            <div  data-theme="light" key={index} className="mb-24 md:mb-56">
-              <div className="grid grid-cols-12 gap-x-8 px-6 md:px-10">
-                {/* SIDE CAPTION */}
-                <div
-                  className={`
-                    col-span-12 md:col-span-3
-                    flex items-center
-                    order-1
-                    ${isEven ? "md:order-1" : "md:order-2"}
-                  `}
-                >
-                  <div className="max-w-xs pb-8 md:pb-0">
-                    <h2 className="text-[clamp(25px,5vw,24px)] font-[Canela] leading-[1.3]  tracking-wide text-neutral-800">
-                      {cluster.title}
-                    </h2>
-                    <p className="mt-1.5 text-[11px] uppercase tracking-[0.22em] text-neutral-500">
-                      {cluster.location}
-                    </p>
-                    <p className="mt-3 md:mt-4 text-[14px] md:text-sm leading-[1.5] text-neutral-600">
-                      {cluster.description}
-                    </p>
-                  </div>
-                </div>
-
-                {/* IMAGE GRID */}
-                <div
-                  className={`
-                    col-span-12 md:col-span-9
-                    grid grid-cols-12 gap-x-5 gap-y-10
-                    order-2
-                    ${isEven ? "md:order-2" : "md:order-1"}
-                  `}
-                >
-                  {/* TALL */}
-                  <div
-                    onClick={() => openGallery(0)}
-                    className="col-span-5 row-span-2 relative aspect-[2/3] overflow-hidden cursor-pointer"
-                  >
-                    <motion.div
-                      style={{ y: tallY }}
-                      initial={{ scale: 1.1 }}
-                      whileHover={!isMobile ? { scale: 1.125 } : {}}
-                      transition={{ duration: 0.6, ease: "easeOut" }}
-                      className="absolute inset-0"
-                    >
-                      <div
-                        ref={(el) => (maskRefs.current[index * 3] = el)}
-                        className="absolute inset-0"
-                      >
-                        <Image src={cluster.images.tall} alt="" fill className="object-cover" />
-                      </div>
-                    </motion.div>
-                  </div>
-
-                  {/* WIDE */}
-                  <div
-                    onClick={() => openGallery(1)}
-                    className="col-span-7 relative aspect-[16/10] overflow-hidden cursor-pointer"
-                  >
-                    <motion.div
-                      style={{ y: wideY }}
-                      initial={{ scale: 1.08 }}
-                      whileHover={!isMobile ? { scale: 1.1 } : {}}
-                      transition={{ duration: 0.6, ease: "easeOut" }}
-                      className="absolute inset-0"
-                    >
-                      <div
-                        ref={(el) => (maskRefs.current[index * 3 + 1] = el)}
-                        className="absolute inset-0"
-                      >
-                        <Image src={cluster.images.wide} alt="" fill className="object-cover" />
-                      </div>
-                    </motion.div>
-                  </div>
-
-                  {/* MEDIUM */}
-                  <div
-                    onClick={() =>
-                      openGallery(2 + (activeMediumIndex[index] || 0))
-                    }
-                    className="col-span-6 -mt-4 relative aspect-[4/3] overflow-hidden cursor-pointer"
-                  >
-                    <motion.div
-                      style={{ y: mediumY }}
-                      initial={{ scale: 1.07 }}
-                      whileHover={!isMobile ? { scale: 1.1 } : {}}
-                      transition={{ duration: 0.6, ease: "easeOut" }}
-                      className="absolute inset-0"
-                    >
-                      <div
-                        ref={(el) => (maskRefs.current[index * 3 + 2] = el)}
-                        className="absolute inset-0"
-                      >
-                        {cluster.images.medium.map((src, i) => (
-                          <div
-                            key={i}
-                            ref={(el) => {
-                              if (el)
-                                mediumLayersRef.current[index][i] = el;
-                            }}
-                            className="absolute inset-0"
-                          >
-                            <Image
-                              src={src}
-                              alt=""
-                              fill
-                              className="object-cover"
-                              priority={i === 0}
-                            />
-                          </div>
-                        ))}
-                      </div>
-                    </motion.div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        })}
+        {clusters.map((cluster, index) => (
+          <ProjectCluster
+            key={index}
+            cluster={cluster}
+            index={index}
+            isMobile={isMobile}
+            scrollYProgress={scrollYProgress}
+            onMaskRef={setMaskRef}
+            onMediumLayerRef={setMediumLayerRef}
+            activeMediumIndex={activeMediumIndex}
+            onOpenGallery={openGallery}
+          />
+        ))}
       </section>
 
       <Lightbox

@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
 
 export default function WhatWeDo() {
+  const sectionRef = useRef(null);
   const imageRefs = useRef([]);
   const textRefs = useRef([]);
   const headerRefs = useRef([]);
@@ -52,69 +53,73 @@ export default function WhatWeDo() {
   ];
 
   useEffect(() => {
-    /* IMAGE PARALLAX — DESKTOP ONLY */
-    imageRefs.current.forEach((img) => {
-      if (!img) return;
+    const ctx = gsap.context(() => {
+      /* IMAGE PARALLAX — DESKTOP ONLY */
+      imageRefs.current.forEach((img) => {
+        if (!img) return;
 
-      gsap.fromTo(
-        img,
-        { y: -8 },
-        {
-          y: 8,
-          ease: "none",
-          scrollTrigger: {
-            trigger: img,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: 1.2,
-          },
-        }
-      );
-    });
+        gsap.fromTo(
+          img,
+          { y: -8 },
+          {
+            y: 8,
+            ease: "none",
+            scrollTrigger: {
+              trigger: img,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 1.2,
+            },
+          }
+        );
+      });
 
-    /* HEADER REVEAL */
-    headerRefs.current.forEach((el) => {
-      if (!el) return;
+      /* HEADER REVEAL */
+      headerRefs.current.forEach((el) => {
+        if (!el) return;
 
-      gsap.fromTo(
-        el,
-        { y: 40, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 1.1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 85%",
-          },
-        }
-      );
-    });
+        gsap.fromTo(
+          el,
+          { y: 40, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1.1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 85%",
+            },
+          }
+        );
+      });
 
-    /* TEXT REVEAL */
-    textRefs.current.forEach((el) => {
-      if (!el) return;
+      /* TEXT REVEAL */
+      textRefs.current.forEach((el) => {
+        if (!el) return;
 
-      gsap.fromTo(
-        el,
-        { y: 48, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: el,
-            start: "top 105%",
-          },
-        }
-      );
-    });
+        gsap.fromTo(
+          el,
+          { y: 48, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 105%",
+            },
+          }
+        );
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
-    <section  data-theme="light" className="relative bg-[#fffcf7] text-[#2f3b2f] px-5 sm:px-[6vw] py-20">
+    <section ref={sectionRef} data-theme="light" className="relative bg-[#fffcf7] text-[#2f3b2f] px-5 sm:px-[6vw] py-20">
       {/* HEADER */}
       <div className="mb-24 overflow-hidden">
         <span className="block md:hidden text-[42px] font-[Canela] leading-[1.1]">
@@ -130,7 +135,7 @@ export default function WhatWeDo() {
         <div className="overflow-hidden">
           <h2
             ref={(el) => (headerRefs.current[1] = el)}
-            className="text-[clamp(22px,4vw,48px)] leading-[1.3] tracking-[-1.9]"
+            className="text-[clamp(22px,4vw,48px)] leading-[1.3] tracking-[-1.9px]"
           >
             End-to-end construction and quality control services{" "}
             <span className="md:font-[Canela] md:font-light">
@@ -163,6 +168,7 @@ export default function WhatWeDo() {
                   }}
                 >
                   <div className="w-[300px] aspect-[16/9] overflow-hidden">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       ref={(el) => (imageRefs.current[i] = el)}
                       src={item.image}

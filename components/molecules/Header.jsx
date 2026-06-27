@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
+import Link from "next/link";
 
 export default function Header() {
   const headerRef = useRef(null);
@@ -104,7 +105,8 @@ export default function Header() {
         "
       >
         {/* LOGO — LEFT */}
-        <a href="/" className="block">
+        <Link href="/" className="block">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/images/Logo IQC - White 3.png"
             alt="IQC"
@@ -115,7 +117,7 @@ export default function Header() {
               group-data-[theme=light]:invert
             "
           />
-        </a>
+        </Link>
       </div>
     </header>
   );

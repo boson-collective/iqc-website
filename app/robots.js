@@ -1,4 +1,8 @@
+import { getSiteUrl } from "@/lib/site";
+
 export default function robots() {
+  const siteUrl = getSiteUrl();
+
   return {
     rules: [
       {
@@ -7,7 +11,10 @@ export default function robots() {
         disallow: ["/sandbox"],
       },
     ],
-    sitemap: "https://iqc-eta.vercel.app/sitemap.xml",
+    ...(siteUrl
+      ? {
+          sitemap: `${siteUrl}/sitemap.xml`,
+        }
+      : {}),
   };
 }
-

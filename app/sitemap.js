@@ -1,7 +1,13 @@
+import { getSiteUrl } from "@/lib/site";
+
 export default function sitemap() {
+  const siteUrl = getSiteUrl();
+
+  if (!siteUrl) return [];
+
   return [
     {
-      url: "https://iqc-eta.vercel.app",
+      url: siteUrl,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 1,

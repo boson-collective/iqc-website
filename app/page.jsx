@@ -2,7 +2,6 @@
 
 import { useRef, useEffect, useState } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-import { gsap } from "@/lib/gsap";
 import Image from "next/image";
 
 import Header from "@/components/molecules/Header";
@@ -131,33 +130,6 @@ export default function Page() {
     return () => clearTimeout(t);
   }, []);
 
-  // =========================
-  // PINNED SCROLL (UNCHANGED)
-  // =========================
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const pinnedSections = gsap.utils.toArray("[data-pin]");
-
-      pinnedSections.forEach((section) => {
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: section,
-            start: "top top",
-            end: "+=100%",
-            pin: true,
-            pinSpacing: false,
-            scrub: true,
-            anticipatePin: 1,
-          },
-        });
-
-        tl.fromTo(section, { y: 0 }, { y: -40, ease: "none" });
-      });
-    }, pageRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
     <div ref={pageRef} className="relative">
       {/* OPENING SHUTTER — DIPINDAHKAN */}
@@ -181,9 +153,6 @@ export default function Page() {
       <WhyChooseUs />
       <Projects />
       <Footer />
-      <section data-pin>
-        
-      </section>
     </div>
   );
 }

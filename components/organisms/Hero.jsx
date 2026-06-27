@@ -38,7 +38,7 @@ export default function Hero({ opened }) {
   return (
     <section
       ref={sectionRef}
-      className="relative h-screen w-full overflow-hidden bg-black"
+      className="relative min-h-screen min-h-dvh w-full overflow-hidden bg-black"
     >
       {/* ================= BACKGROUND ================= */}
       <motion.div
@@ -77,11 +77,12 @@ export default function Hero({ opened }) {
       </motion.div>
 
       {/* ================= CONTENT GRID ================= */}
-      <div className="relative z-10 h-full">
+      <div className="relative z-10 min-h-screen min-h-dvh">
         <div
           className="
             grid
-            h-full
+            min-h-screen
+            min-h-dvh
             grid-rows-[auto_1fr_auto]
             px-6
             pb-10

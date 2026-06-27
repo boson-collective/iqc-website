@@ -16,18 +16,22 @@ export default function Footer() {
      BACKGROUND PARALLAX (IMAGE)
   =============================== */
   useEffect(() => {
-    if (!bgRef.current || !footerRef.current) return;
+    const ctx = gsap.context(() => {
+      if (!bgRef.current || !footerRef.current) return;
 
-    gsap.to(bgRef.current, {
-      y: "-10%",
-      ease: "none",
-      scrollTrigger: {
-        trigger: footerRef.current,
-        start: "top bottom",
-        end: "bottom top",
-        scrub: true,
-      },
-    });
+      gsap.to(bgRef.current, {
+        y: "-10%",
+        ease: "none",
+        scrollTrigger: {
+          trigger: footerRef.current,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true,
+        },
+      });
+    }, footerRef);
+
+    return () => ctx.revert();
   }, []);
 
   /* ===============================
@@ -107,6 +111,7 @@ export default function Footer() {
     >
       {/* ================= BACKGROUND ================= */}
       <div className="pointer-events-none absolute inset-0">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           ref={bgRef}
           src="/images/BG - 1.jpg"
@@ -128,6 +133,7 @@ export default function Footer() {
               lg:text-left
             "
           >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/images/Logo IQC - White 3.png"
               alt="IQC Logo"
@@ -172,7 +178,8 @@ export default function Footer() {
             <div className="flex flex-col sm:flex-row w-full sm:w-auto gap-4 sm:gap-6">
               <a
                 ref={ctaPrimaryRef}
-                href="#contact"
+                href="mailto:info@iconicqc.com"
+                aria-label="Contact iQC by email"
                 className="
                   w-full
                   sm:w-auto
@@ -190,6 +197,11 @@ export default function Footer() {
                   duration-300
                   hover:bg-white
                   hover:text-[#1f261c]
+                  focus:outline-none
+                  focus-visible:ring-1
+                  focus-visible:ring-white
+                  focus-visible:ring-offset-4
+                  focus-visible:ring-offset-[#1f261c]
                 "
               >
                 Contact Us
@@ -197,7 +209,8 @@ export default function Footer() {
 
               <a
                 ref={ctaSecondaryRef}
-                href="#quote"
+                href="mailto:info@iconicqc.com?subject=Request%20a%20Quote"
+                aria-label="Request a quote from iQC by email"
                 className="
                   w-full
                   sm:w-auto
@@ -216,6 +229,11 @@ export default function Footer() {
                   duration-300
                   hover:border-white
                   hover:text-white
+                  focus:outline-none
+                  focus-visible:ring-1
+                  focus-visible:ring-white
+                  focus-visible:ring-offset-4
+                  focus-visible:ring-offset-[#1f261c]
                 "
               >
                 Request a Quote
@@ -224,7 +242,8 @@ export default function Footer() {
 
             <a
               href="mailto:info@iconicqc.com"
-              className="text-white/65 text-[14px] lg:text-[15px] tracking-wide transition hover:text-white"
+              aria-label="Email iQC at info@iconicqc.com"
+              className="text-white/65 text-[14px] lg:text-[15px] tracking-wide transition hover:text-white focus:outline-none focus-visible:ring-1 focus-visible:ring-white focus-visible:ring-offset-4 focus-visible:ring-offset-[#1f261c]"
             >
               info@iconicqc.com
             </a>

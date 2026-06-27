@@ -97,6 +97,7 @@ export default function ProjectApproach() {
     >
       {/* BACKGROUND FRAME (STATIC) */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           ref={bgImageRef}
           src="/images/approach-bg.png"
@@ -131,7 +132,7 @@ export default function ProjectApproach() {
                 className="
                   text-[clamp(22px,3.8vw,43px)]
                   leading-[1.3]
-                  tracking-[-1.9]
+                  tracking-[-1.9px]
                 "
               >
                 A clear process that keeps{" "}

@@ -86,6 +86,7 @@ export default function WhyChooseUs() {
     >
       {/* BACKGROUND */}
       <div className="pointer-events-none absolute inset-0">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src="/images/image_2026-01-28_20-39-35.png"
           alt=""
@@ -136,7 +137,7 @@ export default function WhyChooseUs() {
               <h4
                 className="
                   font-semibold
-                  text-[clamp(22px,1.2vw,18px)]
+                  text-[clamp(18px,1.6vw,22px)]
                   leading-[1.3]
                   tracking-wide
                   font-[Canela]

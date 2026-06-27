@@ -113,7 +113,7 @@ export default function About() {
     <section
       ref={sectionRef}
       data-theme="light"
-      className="relative flex h-screen w-full items-center justify-center overflow-hidden bg-[#fffcf7] text-[#2f3b2f]"
+      className="relative flex min-h-screen min-h-dvh w-full items-center justify-center overflow-hidden bg-[#fffcf7] text-[#2f3b2f]"
     >
       {/* ================= BACKGROUND ================= */}
       <div className="absolute inset-0">
